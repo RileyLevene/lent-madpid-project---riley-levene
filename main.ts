@@ -1,4 +1,4 @@
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Dart = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -18,6 +18,10 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `, spacePlane, 200, 0)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    info.changeLifeBy(1)
+})
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.warmRadial, 100)
     info.changeScoreBy(1)
@@ -26,6 +30,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     otherSprite.destroy()
     info.changeLifeBy(-1)
 })
+let Life: Sprite = null
 let EnemyShip: Sprite = null
 let Dart: Sprite = null
 let spacePlane: Sprite = null
@@ -196,4 +201,20 @@ game.onUpdateInterval(500, function () {
     EnemyShip.left = scene.screenWidth()
     EnemyShip.y = randint(0, scene.screenHeight())
     EnemyShip.setFlag(SpriteFlag.AutoDestroy, true)
+})
+game.onUpdateInterval(10000, function () {
+    Life = sprites.create(img`
+        . . b b b b . . 
+        . b 5 5 5 5 b . 
+        b 5 d 3 3 d 5 b 
+        b 5 3 5 5 1 5 b 
+        c 5 3 5 5 1 d c 
+        c d d 1 1 d d c 
+        . f d d d d f . 
+        . . f f f f . . 
+        `, SpriteKind.Food)
+    Life.setVelocity(-100, 0)
+    Life.left = scene.screenWidth()
+    Life.y = randint(0, scene.screenHeight())
+    Life.setFlag(SpriteFlag.AutoDestroy, true)
 })
