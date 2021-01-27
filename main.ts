@@ -19,7 +19,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         `, spacePlane, 200, 0)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    otherSprite.destroy()
+    otherSprite.destroy(effects.confetti, 100)
     info.changeLifeBy(1)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
