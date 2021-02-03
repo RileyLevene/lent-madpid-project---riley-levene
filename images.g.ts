@@ -189,6 +189,16 @@ c d d 1 1 d d c
 . f d d d d f . 
 . . f f f f . . 
 `;
+            case "image6":return img`
+. . 2 2 2 2 . . 
+. 2 5 5 5 5 2 . 
+2 5 e 4 4 e 5 2 
+2 5 4 5 5 2 5 2 
+2 5 4 5 5 2 e 2 
+2 e e 2 2 e e 2 
+. 2 e e e e 2 . 
+. . 2 2 2 2 . . 
+`;
         }
         return null;
     })

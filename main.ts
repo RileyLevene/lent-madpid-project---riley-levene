@@ -1,3 +1,10 @@
+namespace SpriteKind {
+    export const BadCoin = SpriteKind.create()
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.BadCoin, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.fire, 100)
+    info.changeLifeBy(-2)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Dart = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
@@ -31,6 +38,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     info.changeLifeBy(-1)
 })
 let Life: Sprite = null
+let BadCoin: Sprite = null
 let EnemyShip: Sprite = null
 let Dart: Sprite = null
 let spacePlane: Sprite = null
@@ -201,6 +209,22 @@ game.onUpdateInterval(500, function () {
     EnemyShip.left = scene.screenWidth()
     EnemyShip.y = randint(0, scene.screenHeight())
     EnemyShip.setFlag(SpriteFlag.AutoDestroy, true)
+})
+game.onUpdateInterval(20000, function () {
+    BadCoin = sprites.create(img`
+        . . 2 2 2 2 . . 
+        . 2 5 5 5 5 2 . 
+        2 5 e 4 4 e 5 2 
+        2 5 4 5 5 2 5 2 
+        2 5 4 5 5 2 e 2 
+        2 e e 2 2 e e 2 
+        . 2 e e e e 2 . 
+        . . 2 2 2 2 . . 
+        `, SpriteKind.BadCoin)
+    BadCoin.setVelocity(-100, 0)
+    BadCoin.left = scene.screenWidth()
+    BadCoin.y = randint(0, scene.screenHeight())
+    BadCoin.setFlag(SpriteFlag.AutoDestroy, true)
 })
 game.onUpdateInterval(10000, function () {
     Life = sprites.create(img`
